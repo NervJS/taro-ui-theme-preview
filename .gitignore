@@ -20,5 +20,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.temp
 /dist
+.temp
+/public/h5
+
+package-lock.json
