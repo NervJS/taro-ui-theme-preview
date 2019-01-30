@@ -7,10 +7,18 @@
   height: 100vh;
   background: #f8faff;
 
+  .container {
+    display: flex;
+    margin: 0 auto;
+    padding: 0 24px;
+    max-width: 1200px;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+  }
+
   .demo-frame {
-    position: fixed;
-    top: 150px;
-    left: 50px;
+    position: relative;
     width: 375px;
     height: 756px;
     background-color: #fff;
@@ -33,5 +41,25 @@
     background: url('./assets/iframe_iphonex.png') no-repeat;
     background-size: contain;
     pointer-events: none;
+  }
+
+  .panel-right {
+    flex: 1;
+    margin-left: 300px;
+  }
+
+  .btn-change-theme {
+    display: inline-block;
+    padding: 8px 24px;
+    color: #383838;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #383838;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:active {
+      opacity: 0.8;
+    }
   }
 }
