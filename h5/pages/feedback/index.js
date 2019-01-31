@@ -315,19 +315,6 @@ export default class FeedbackPage extends Taro.Component {
                 </View>
               </View>
 
-              {/* 自定义颜色 */}
-              <View className='example-item'>
-                <View className='subitem'>
-                  <AtActivityIndicator color='#13CE66' />
-                </View>
-                <View className='subitem'>
-                  <AtActivityIndicator color='#FF4949' />
-                </View>
-                <View className='subitem'>
-                  <AtActivityIndicator color='#C9C9C9' />
-                </View>
-              </View>
-
               {/* 垂直水平居中 */}
               <View className='example-item indicator-panel'>
                 <AtActivityIndicator mode='center' />

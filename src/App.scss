@@ -1,65 +1,288 @@
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 .app {
   width: 100%;
   height: 100vh;
-  background: #f8faff;
+  background: #fff;
 
   .container {
     display: flex;
     margin: 0 auto;
-    padding: 0 24px;
-    max-width: 1200px;
     height: 100vh;
+  }
+
+  .panel-left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f8faff;
+  }
+
+  .panel-right {
+    flex: 1;
+    display: flex;
+    padding-left: 120px;
     justify-content: center;
     align-items: center;
   }
 
   .demo-frame {
     position: relative;
+    padding: 58px 22px 18px;
     width: 375px;
     height: 756px;
     background-color: #fff;
     box-shadow: 0 4px 30px 0 rgba(4, 59, 85, 0.1);
     border-radius: 60px;
+    overflow: hidden;
+
+    .navbar {
+      position: absolute;
+      padding: 0 22px;
+      top: 58px;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: #fff;
+
+      &__title {
+        color: #333;
+        font-size: 19px;
+        font-weight: bold;
+        line-height: 40px;
+        text-align: center;
+      }
+
+      &__btn-back {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: 22px;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+
+        &:active {
+          opacity: 0.8;
+        }
+
+        .icon {
+          width: 20px;
+          fill: #333;
+        }
+      }
+    }
+
+    iframe {
+      padding-top: 40px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .iphone-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 375px;
+      height: 758px;
+      background: url('./assets/iframe_iphonex.png') no-repeat;
+      background-size: contain;
+      pointer-events: none;
+    }
+
   }
 
-  iframe {
-    padding: 58px 22px 18px;
-    width: 375px;
-    height: 758px;
+
+  .info {
+    width: 600px;
+
+    .subtitle {
+      padding-left: 2px;
+      color: #D2D1D2;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    .title {
+      color: #030303;
+      font-size: 40px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    .desc {
+      margin-top: 40px;
+      color: #B8B7B9;
+      font-size: 16px;
+      line-height: 1.4;
+
+      a {
+        color: #B8B7B9;
+        font-weight: bold;
+        text-decoration: none;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
   }
 
-  .iphone-frame {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 375px;
-    height: 758px;
-    background: url('./assets/iframe_iphonex.png') no-repeat;
-    background-size: contain;
-    pointer-events: none;
+  .color-palette {
+    margin-top: 64px;
+    display: flex;
+    align-items: center;
+
+    .color-list {
+      display: flex;
+
+      &__item {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all .3s;
+
+        &:hover,
+        &--active {
+          transform: scale(1.2);
+        }
+
+        + .color-list__item {
+          margin-left: 16px;
+        }
+      }
+    }
+
+    .color-picker-wrapper {
+      position: relative;
+      margin-left: 40px;
+
+      .color-picker {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        height: 36px;
+        padding: 0 10px;
+        color: #1A1919;
+        font-size: 14px;
+        line-height: 1;
+        border: 1px solid #F2EBF2;
+        border-radius: 18px;
+        cursor: pointer;
+        transition: all .3s;
+
+        &--active,
+        &:hover {
+          // border-color: #FEC502;
+          border-color: #157EFF;
+        }
+
+        .selected-color {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+        }
+
+        span {
+          margin-left: 12px;
+        }
+      }
+
+      .popup-picker {
+        position: absolute;
+        left: 0;
+        bottom: 50px;
+        width: 220px;
+        height: 220px;
+
+        &__mask {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        }
+      }
+    }
   }
 
-  .panel-right {
-    flex: 1;
-    margin-left: 300px;
-  }
+  .result-cnt {
+    display: flex;
+    align-items: center;
+    margin-top: 80px;
 
-  .btn-change-theme {
-    display: inline-block;
-    padding: 8px 24px;
-    color: #383838;
-    font-size: 14px;
-    text-align: center;
-    border: 1px solid #383838;
-    border-radius: 4px;
-    cursor: pointer;
+    &__color {
+      position: relative;
+      width: 100px;
 
-    &:active {
-      opacity: 0.8;
+      &-text {
+        position: relative;
+        color: #1A1919;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      &-bar {
+        position: absolute;
+        top: 14px;
+        left: 8px;
+        width: 120px;
+        height: 16px;
+        display: block;
+        opacity: 0.3;
+      }
+    }
+
+    &__btns {
+      margin-left: 64px;
+    }
+
+    &__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      height: 32px;
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 16px;
+      background: #157EFF;
+      cursor: pointer;
+      transition: all .3s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      + .result-cnt__btn {
+        margin-left: 24px;
+      }
+
+      .icon {
+        margin-right: 6px;
+        width: 16px;
+        fill: #fff;
+      }
+
+      &--download {
+        color: #157EFF;
+        border: 1px solid #157EFF;
+        background: transparent;
+
+        .icon {
+          fill: #157EFF;
+        }
+      }
     }
   }
 }

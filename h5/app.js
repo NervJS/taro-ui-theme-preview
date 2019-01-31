@@ -15,7 +15,9 @@ class App extends Component {
       'pages/layout/index',
       'pages/navigation/index',
       'pages/navigation/indexes/index',
-      'pages/advanced/index'
+      'pages/advanced/index',
+      'pages/themes/jd/index',
+      'pages/themes/aotu/index'
     ],
     window: {
       backgroundTextStyle: 'light',
