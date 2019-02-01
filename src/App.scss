@@ -9,6 +9,31 @@
   height: 100vh;
   background: #fff;
 
+  .logo-cnt {
+    position: absolute;
+    top: 24px;
+    right: 48px;
+
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      width: 30px;
+      height: 20px;
+    }
+
+    span {
+      margin-left: 8px;
+      color: #333;
+      font-weight: bold;
+      font-style: italic;
+      font-size: 16px;
+    }
+  }
+
   .container {
     display: flex;
     margin: 0 auto;

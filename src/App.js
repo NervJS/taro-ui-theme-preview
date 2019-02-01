@@ -7,6 +7,8 @@ import { getFileByUrl, getStyleTemplateByData } from './libs/utils'
 import generateColors from './libs/color'
 import './App.scss'
 
+import taroLogo from './assets/logo-taro.png'
+
 class App extends Component {
   state = {
     originStyleTmpl: '',
@@ -138,6 +140,13 @@ class App extends Component {
 
     return (
       <div className='app'>
+        <div className="logo-cnt">
+          <a href='https://taro-ui.aotu.io/#/' target='__blank'>
+            <img className='logo-img' alt='Taro UI' src={taroLogo} />
+            <span>Taro UI</span>
+          </a>
+        </div>
+
         <div className='container'>
           <div className='panel-left'>
             {/* Taro UI Demo 展示页 */}
