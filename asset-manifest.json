@@ -1,14 +1,14 @@
 {
-  "main.css": "/static/css/main.df2a551a.chunk.css",
-  "main.js": "/static/js/main.1fafb559.chunk.js",
-  "main.js.map": "/static/js/main.1fafb559.chunk.js.map",
-  "static/js/1.30263282.chunk.js": "/static/js/1.30263282.chunk.js",
-  "static/js/1.30263282.chunk.js.map": "/static/js/1.30263282.chunk.js.map",
-  "runtime~main.js": "/static/js/runtime~main.229c360f.js",
-  "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
-  "static/media/App.scss": "/static/media/iframe_iphonex.8ea9318b.png",
-  "static/css/main.df2a551a.chunk.css.map": "/static/css/main.df2a551a.chunk.css.map",
-  "index.html": "/index.html",
-  "precache-manifest.d7202fab546864684f9c9763e09f17b6.js": "/precache-manifest.d7202fab546864684f9c9763e09f17b6.js",
-  "service-worker.js": "/service-worker.js"
+  "main.css": "./static/css/main.c477e7f4.chunk.css",
+  "main.js": "./static/js/main.09253055.chunk.js",
+  "main.js.map": "./static/js/main.09253055.chunk.js.map",
+  "static/js/1.e021ecab.chunk.js": "./static/js/1.e021ecab.chunk.js",
+  "static/js/1.e021ecab.chunk.js.map": "./static/js/1.e021ecab.chunk.js.map",
+  "runtime~main.js": "./static/js/runtime~main.4a686d48.js",
+  "runtime~main.js.map": "./static/js/runtime~main.4a686d48.js.map",
+  "static/media/App.scss": "./static/media/iframe_iphonex.8ea9318b.png",
+  "static/css/main.c477e7f4.chunk.css.map": "./static/css/main.c477e7f4.chunk.css.map",
+  "index.html": "./index.html",
+  "precache-manifest.37a4af7b8a8eb868501f033ff779684b.js": "./precache-manifest.37a4af7b8a8eb868501f033ff779684b.js",
+  "service-worker.js": "./service-worker.js"
 }
