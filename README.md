@@ -1,6 +1,6 @@
 # Taro UI 主题生成工具
 
-请打开网址进行体验 <a href="https://elementui.github.io/theme-chalk-preview/">Taro UI 主题生成器</a>
+请打开网址进行体验 <a href="https://nervjs.github.io/taro-ui-theme-preview/">Taro UI 主题生成器</a>
 
 ## 关于 Taro
 
