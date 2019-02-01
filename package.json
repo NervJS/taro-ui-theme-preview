@@ -6,10 +6,14 @@
   "scripts": {
     "build:h5": "taro build --type h5",
     "dev:h5": "npm run build:h5 -- --watch",
-    "build:h5-static": "npm run build:h5 && node ./build/build-static",
-    "dev": "react-scripts start"
+    "build:h5-static": "npm run build:h5 && node ./scripts/build-h5",
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "build:docs": "npm run build:h5-static && npm run build",
+    "predeploy": "npm run build:docs",
+    "deploy": "gh-pages -d build"
   },
-  "author": "",
+  "author": "koppt <kopptsoft@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@tarojs/components": "1.2.11",
@@ -55,8 +59,10 @@
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-taro": "1.2.11",
     "fs-extra": "^7.0.1",
+    "gh-pages": "^2.0.1",
     "ora": "^3.0.0"
   },
+  "homepage": ".",
   "eslintConfig": {
     "extends": "react-app",
     "rules": {

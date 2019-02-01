@@ -151,7 +151,7 @@ class App extends Component {
           <div className='panel-left'>
             {/* Taro UI Demo 展示页 */}
             <div className='demo-frame'>
-              <iframe id='J-demo' title='UI' src='/h5/index.html' frameBorder={0}></iframe>
+              <iframe id='J-demo' title='UI' src={`${process.env.PUBLIC_URL}/h5/index.html`} frameBorder={0}></iframe>
               <div className='navbar'>
                 <div className='navbar__btn-back' onClick={this.handleBtnBack.bind(this)}>
                   <svg t='1548917697699' className='icon' viewBox='0 0 1024 1024' version='1.1'>
