@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
 import { SketchPicker } from 'react-color'
 import classnames from 'classnames'
+import JSZip from 'jszip'
+import FileSaver from 'file-saver'
+import { getFileByUrl, getStyleTemplateByData } from './libs/utils'
+import generateColors from './libs/color'
 import './App.scss'
 
 class App extends Component {
   state = {
     originStyleTmpl: '',
+    customStyleText: '',
+    themeFile: {},
     currentColor: '#6190E8',
-    colorList: ['#424143', '#FFC701', '#157EFF', '#73CAFF'],
+    colorList: ['#6190E8', '#424143', '#FFC701', '#E93B3D'],
     customColor: '#157EFF',
+    colors: {}, // 配色方案
     displayColorPicker: false,
   }
 
@@ -21,7 +28,8 @@ class App extends Component {
 
   updateCurrentColor (color) {
     this.setState({
-      currentColor: color
+      currentColor: color,
+      colors: generateColors(color)
     })
   }
 
@@ -29,9 +37,9 @@ class App extends Component {
     const newColor = color.hex || ''
     if (newColor) {
       this.setState({
-        currentColor: newColor,
-        customColor: newColor,
+        customColor: newColor
       })
+      this.updateCurrentColor(newColor)
     }
   }
 
@@ -47,69 +55,80 @@ class App extends Component {
     })
   }
 
-  handleIframeChange () {
-    console.log('sss')
-  }
-
   changeTheme () {
-    const { originStyleTmpl } = this.state
-    this.insertCustomTheme(originStyleTmpl)
+    let cssText = this.state.originStyleTmpl
+    cssText = this.replaceThemeVariables(cssText)
+
+    this.setState({
+      customStyleText: cssText
+    })
+    this.insertCustomTheme('custom-theme-style', cssText)
   }
 
-  insertCustomTheme (style) {
-    const customStyle = document.createElement('style')
-    customStyle.type = 'text/css'
-    customStyle.innerHTML = style
+  downloadTheme () {
+    const { currentColor, themeFile, originStyleTmpl } = this.state
+    this.zip = new JSZip()
 
-    this.demoFrameDom.document.querySelector('head').appendChild(customStyle)
+    const themeCSSText = this.replaceThemeVariables(originStyleTmpl)
+    const themeVariablesText = this.replaceThemeVariables(themeFile.data)
+
+    this.zip.file('taro-ui.css', themeCSSText)
+    this.zip.file(themeFile.url, themeVariablesText)
+    this.zip.generateAsync({ type: 'blob' })
+      .then(blob => {
+        FileSaver.saveAs(blob, `taro-ui_${currentColor}.zip`)
+      })
   }
 
-  getUIStyle () {
-    this.getFile(`${process.env.PUBLIC_URL}/h5/css/app.css`)
-      .then(({ data }) => {
+  replaceThemeVariables (style) {
+    const { colors } = this.state
+    let cssText = style
+
+    Object.keys(colors).forEach(key => {
+      cssText = cssText.replace(new RegExp(key, 'g'), colors[key])
+    })
+
+    return cssText
+  }
+
+  insertCustomTheme (idName, style) {
+    if (!idName) return
+    const insertedEle = this.demoFrameDom.document.querySelector(`#${idName}`)
+
+    if (insertedEle) {
+      insertedEle.innerHTML = style
+    } else {
+      const customStyle = document.createElement('style')
+      customStyle.type = 'text/css'
+      customStyle.id = idName
+      customStyle.innerHTML = style
+
+      this.demoFrameDom.document.querySelector('head').appendChild(customStyle)
+    }
+  }
+
+  getUIStyleTmpl () {
+    getFileByUrl(`${process.env.PUBLIC_URL}/h5/css/app.css`)
+      .then(({ url, data }) => {
         this.setState({
-          originStyleTmpl: this.getStyleTemplate(data)
+          originStyleTmpl: getStyleTemplateByData(data)
         })
       })
   }
 
-  getFile (url) {
-    return new Promise((resolve, reject) => {
-      const client = new XMLHttpRequest()
-
-      client.onreadystatechange = () => {
-        if (client.readyState !== 4) return
-        if (client.status === 200) {
-          const urlArr = client.responseURL.split('/')
-          resolve({
-            data: client.response,
-            url: urlArr[urlArr.length - 1]
-          })
-        } else {
-          reject(new Error(client.statusText))
-        }
-      }
-
-      client.open('GET', url)
-      client.send()
-    })
-  }
-
-  getStyleTemplate (data) {
-    const colorMap = {
-      '#e93b3d': '#6190E8',
-    }
-
-    Object.keys(colorMap).forEach(key => {
-      const value = colorMap[key]
-      data = data.replace(new RegExp(key, 'ig'), value)
-    })
-
-    return data
+  getThemeFileTmpl () {
+    getFileByUrl(`${process.env.PUBLIC_URL}/custom-theme.scss`)
+      .then(file => {
+        this.setState({
+          themeFile: file
+        })
+      })
   }
 
   componentDidMount () {
-    this.getUIStyle()
+    this.updateCurrentColor(this.state.currentColor)
+    this.getUIStyleTmpl()
+    this.getThemeFileTmpl()
     this.demoFrame = document.querySelector('#J-demo')
     this.demoFrameDom = this.demoFrame.contentWindow
   }
@@ -191,7 +210,7 @@ class App extends Component {
                     </svg>
                     预览
                   </div>
-                  <div className='result-cnt__btn result-cnt__btn--download' onClick={this.changeTheme.bind(this)}>
+                  <div className='result-cnt__btn result-cnt__btn--download' onClick={this.downloadTheme.bind(this)}>
                     <svg t='1548914158885' className='icon' viewBox='0 0 1024 1024' version='1.1'>
                       <path d='M928 512c-19.2 0-32 12.8-32 32v256H128v-256c0-19.2-12.8-32-32-32s-32 12.8-32 32v252.8C64 832 92.8 864 128 864h768c35.2 0 64-32 64-67.2V544c0-19.2-12.8-32-32-32z' p-id='4873'></path><path d='M726.4 425.6c-12.8-12.8-32-12.8-44.8 0L544 563.2V192c0-19.2-12.8-32-32-32s-32 12.8-32 32v371.2l-137.6-137.6c-12.8-12.8-32-12.8-44.8 0s-12.8 32 0 44.8l192 192c3.2 3.2 6.4 6.4 9.6 6.4 3.2 3.2 9.6 3.2 12.8 3.2s9.6 0 12.8-3.2c3.2-3.2 6.4-3.2 9.6-6.4l192-192c12.8-12.8 12.8-32 0-44.8z' p-id='4874'></path>
                     </svg>

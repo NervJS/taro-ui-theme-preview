@@ -1,5 +1,3 @@
-@import "../../assets/css/variables.scss";
-
 .page {
   position: relative;
   background-color: #FDFDFD;
@@ -7,76 +5,6 @@
   view,
   div {
     box-sizing: border-box;
-  }
-}
-
-.page-index {
-  padding: 60px 0 30px;
-
-  .logo {
-    margin: 0 auto;
-    margin-top: 60px;
-    font-size: 0;
-    text-align: center;
-
-    .img {
-      width: 264px;
-      height: 180px;
-    }
-  }
-
-  .page-title {
-    margin-top: 24px;
-    color: #474747;
-    font-size: 36px;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  .module-list {
-    display: flex;
-    margin: 72px 40px 50px;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
-    &__item {
-      position: relative;
-      margin-bottom: 30px;
-      padding: 40px;
-      width: 320px;
-      background: #fff;
-      box-shadow: 0 8px 40px 0 rgba(0, 0, 0, 0.04);
-      border-radius: 10px;
-
-      &::after {
-        content: '';
-        position: absolute;
-        top: 40px;
-        right: 40px;
-        display: block;
-        width: 30px;
-        height: 8px;
-        border-radius: 4px;
-        background: $color-brand-light;
-        box-shadow: 2px 2px 4px 0 rgba($color: $color-brand-light, $alpha: 0.5);
-      }
-
-      &-title {
-        margin-top: 70px;
-        color: #484848;
-        font-size: 38px;
-        font-weight: bold;
-        line-height: 1.2;
-      }
-
-      &-content {
-        margin-top: 12px;
-        color: #A09EAE;
-        font-size: 24px;
-        line-height: 1.5;
-      }
-    }
   }
 }
 

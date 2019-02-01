@@ -1,7 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import PropTypes from 'prop-types'
 import { View } from '@tarojs/components'
-import './index.scss'
 
 export default class NavigatorBtn extends Component {
   handleGoto (parent, name) {

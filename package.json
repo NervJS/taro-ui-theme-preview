@@ -21,12 +21,16 @@
     "@tarojs/taro-tt": "1.2.11",
     "@tarojs/taro-weapp": "1.2.11",
     "classnames": "^2.2.6",
+    "css-color-function": "^1.3.3",
+    "file-saver": "^2.0.0",
+    "jszip": "^3.1.5",
     "nerv-devtools": "^1.3.9",
     "nervjs": "^1.3.9",
     "react": "^16.7.0",
     "react-color": "^2.17.0",
     "react-dom": "^16.7.0",
     "react-scripts": "^2.1.3",
+    "rgb-hex": "^2.1.0",
     "taro-ui": "^2.0.0-beta.3"
   },
   "devDependencies": {
@@ -54,7 +58,10 @@
     "ora": "^3.0.0"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "react/react-in-jsx-scope": "off"
+    }
   },
   "browserslist": [
     ">0.2%",
