@@ -13,8 +13,8 @@ import taroLogo from './assets/logo-taro.png'
 
 class App extends Component {
   state = {
+    demoStyleTmpl: '',
     originStyleTmpl: '',
-    customStyleText: '',
     themeFile: {},
     currentColor: '#6190E8',
     colorList: ['#6190E8', '#424143', '#FFC701', '#E93B3D'],
@@ -73,12 +73,9 @@ class App extends Component {
   }
 
   changeTheme () {
-    let cssText = this.state.originStyleTmpl
+    let cssText = this.state.demoStyleTmpl
     cssText = this.replaceThemeVariables(cssText)
 
-    this.setState({
-      customStyleText: cssText
-    })
     this.insertCustomTheme('custom-theme-style', cssText)
   }
 
@@ -124,8 +121,17 @@ class App extends Component {
     }
   }
 
-  getUIStyleTmpl () {
+  getDemoStyleTmpl () {
     getFileByUrl(`${process.env.PUBLIC_URL}/h5/css/app.css`)
+      .then(({ url, data }) => {
+        this.setState({
+          demoStyleTmpl: getStyleTemplateByData(data)
+        })
+      })
+  }
+
+  getUIStyleTmpl () {
+    getFileByUrl('https://taro-ui.aotu.io/h5/css/theme_index.css')
       .then(({ url, data }) => {
         this.setState({
           originStyleTmpl: getStyleTemplateByData(data)
@@ -144,6 +150,7 @@ class App extends Component {
 
   componentDidMount () {
     this.updateCurrentColor(this.state.currentColor)
+    this.getDemoStyleTmpl()
     this.getUIStyleTmpl()
     this.getThemeFileTmpl()
     this.demoFrame = document.querySelector('#J-demo')
