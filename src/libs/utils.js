@@ -51,7 +51,22 @@ function getStyleTemplateByData (data) {
   return styleTmpl
 }
 
+function getContrastRating (accessibility) {
+  if (accessibility['aaaLarge']) {
+    return 'AAA Large'
+  } else if (accessibility['aaa']) {
+    return 'AAA'
+  } else if (accessibility['aaLarge']) {
+    return 'AA Large'
+  } else if (accessibility['aa']) {
+    return 'AA'
+  } else {
+    return 'Fail'
+  }
+}
+
 export {
   getFileByUrl,
   getStyleTemplateByData,
+  getContrastRating,
 }

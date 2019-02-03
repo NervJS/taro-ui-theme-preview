@@ -3,7 +3,9 @@ import { SketchPicker } from 'react-color'
 import classnames from 'classnames'
 import JSZip from 'jszip'
 import FileSaver from 'file-saver'
-import { getFileByUrl, getStyleTemplateByData } from './libs/utils'
+import colorable from 'colorable'
+import round from 'lodash/round'
+import { getFileByUrl, getStyleTemplateByData, getContrastRating } from './libs/utils'
 import generateColors from './libs/color'
 import './App.scss'
 
@@ -18,6 +20,10 @@ class App extends Component {
     colorList: ['#6190E8', '#424143', '#FFC701', '#E93B3D'],
     customColor: '#157EFF',
     colors: {}, // 配色方案
+    darkContrastScore: '',
+    darkContrastRate: '',
+    lightContrastScore: '',
+    lightContrastRate: '',
     displayColorPicker: false,
   }
 
@@ -29,9 +35,18 @@ class App extends Component {
   }
 
   updateCurrentColor (color) {
+    const lightContrastObj = colorable([color, '#FFF'])[0].combinations[0]
+    const darkContrastObj = colorable([color, '#000'])[0].combinations[0]
+    const lightContrastScore = round(lightContrastObj.contrast, 2)
+    const darkContrastScore = round(darkContrastObj.contrast, 2)
+
     this.setState({
       currentColor: color,
-      colors: generateColors(color)
+      colors: generateColors(color),
+      darkContrastScore,
+      lightContrastScore,
+      darkContrastRate: getContrastRating(darkContrastObj.accessibility),
+      lightContrastRate: getContrastRating(lightContrastObj.accessibility),
     })
   }
 
@@ -136,7 +151,16 @@ class App extends Component {
   }
 
   render() {
-    const { colorList, customColor, currentColor, displayColorPicker } = this.state
+    const {
+      colorList,
+      customColor,
+      currentColor,
+      displayColorPicker,
+      darkContrastScore,
+      lightContrastScore,
+      darkContrastRate,
+      lightContrastRate,
+    } = this.state
 
     return (
       <div className='app'>
@@ -203,6 +227,13 @@ class App extends Component {
                     </div>
                   )}
                 </div>
+              </div>
+
+              {/* Color Contrast Value */}
+              <div className='color-contrast'>
+                <div className='color-contrast__value color-contrast__value--dark' style={{ color: currentColor }}><span>{darkContrastScore}</span>{darkContrastRate}</div>
+                <div className='color-contrast__value  color-contrast__value--light' style={{ color: currentColor }}><span>{lightContrastScore}</span>{lightContrastRate}</div>
+                <a className='info' href='https://www.w3.org/TR/WCAG20/#visual-audio-contrast' target='__blank'>-- WCAG 2.0 标准</a>
               </div>
 
               <div className='result-cnt'>
